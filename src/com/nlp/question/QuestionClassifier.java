@@ -42,18 +42,25 @@ public class QuestionClassifier {
 		
 		File modelsDir = new File(model_dir);
 		try {
+			
+			//create chunker
 			InputStream chunkerStream = new FileInputStream(new File(modelsDir,
 					"en-chunker.bin"));
 			ChunkerModel chunkerModel = new ChunkerModel(chunkerStream);
 			chunker = new ChunkerME(chunkerModel); // <co id="qqpp.chunker"/>
+			
+			
+			//make POS TAGER
 			InputStream posStream = new FileInputStream(new File(modelsDir,
 					"en-pos-maxent.bin"));
 			POSModel posModel = new POSModel(posStream);
-			tagger = new POSTaggerME(posModel); // <co id="qqpp.tagger"/>
-			model = new DoccatModel(new FileInputStream( // <co
-															// id="qqpp.theModel"/>
+			tagger = new POSTaggerME(posModel); 
+			
+			//LOAD answer model
+			model = new DoccatModel(new FileInputStream( 
 					new File(model_dir, "en-answer.bin")))
 					.getChunkerModel();
+			
 			probs = new double[model.getNumOutcomes()];
 			atcg = new AnswerTypeContextGenerator(new File(wordnet_dir));// <co id="qqpp.context"/>
 		} catch (IOException e) {
@@ -71,11 +78,10 @@ public class QuestionClassifier {
 	
 	public static void main(String[] args){
 		
-		String[] q_array ={ "Who will pick you up"  ,
-				"Who is the presedent of USA",
-				"Where is NYU",
-				"When will the sun rise tomorrow morning",
-				"When does you class start"};
+		String[] q_array ={ 
+				"how much does your watch cost",
+				"how much more time do you need",
+				"how much will a bachular education from nyu cost"};
 		QuestionClassifier c = new QuestionClassifier();
 		for (String qstr : q_array){
 			System.out.println(qstr);

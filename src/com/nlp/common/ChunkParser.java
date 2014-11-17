@@ -29,7 +29,7 @@ public class ChunkParser implements Parser {
     for (int i = 0, il = children.length; i < il; i++) {
       words[i] = children[i].toString();//<co id="cp.words"/>
     }
-    System.out.println(words);
+    //System.out.println(words);
     String[] tags = tagger.tag(words);//<co id="cp.tag"/>
     tagger.probs(probs);//<co id="cp.probs"/>
     for (int j = 0; j < words.length; j++) {

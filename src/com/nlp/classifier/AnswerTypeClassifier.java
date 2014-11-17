@@ -72,9 +72,11 @@ public class AnswerTypeClassifier {
 
 		AnswerTypeEventStream es = new AnswerTypeEventStream(trainFile, actg,
 				parser);
-		GISModel model = GIS.trainModel(100, new TwoPassDataIndexer(es, 3));
+		GISModel model = GIS.trainModel(2000, new TwoPassDataIndexer(es, 3));
 
 		new DoccatModel("en", model).serialize(new FileOutputStream(outFile));
+		
+		System.out.print("file saved");
 
 	}
 
